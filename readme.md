@@ -1,6 +1,8 @@
-**Momo's notes:** This repo includes notes on the application of nnU-Net for segmentation of Vestibular Schwannoma tumors.
+# Momo's notes
 
-The study publishing the dataset is: Shapey, J., Kujawa, A., Dorent, R., Wang, G., Dimitriadis, A., Grishchuk, D., Paddick, I., Kitchen, N., Bradford, R., Saeed, S. R., Bisdas, S., Ourselin, S., & Vercauteren, T. (2021). Segmentation of vestibular schwannoma from MRI, an open annotated dataset and baseline algorithm. In Scientific Data (Vol. 8, Issue 1). Springer Science and Business Media LLC.
+This repo includes notes on the application of nnU-Net for segmentation of Vestibular Schwannoma tumors. This work is done under supervision of Dr. Richard Dortch at Barrow Neurological Institute in Summer 2022.
+
+The dataset used in this project is published in: Shapey, J., Kujawa, A., Dorent, R., Wang, G., Dimitriadis, A., Grishchuk, D., Paddick, I., Kitchen, N., Bradford, R., Saeed, S. R., Bisdas, S., Ourselin, S., & Vercauteren, T. (2021). Segmentation of vestibular schwannoma from MRI, an open annotated dataset and baseline algorithm. In Scientific Data (Vol. 8, Issue 1). Springer Science and Business Media LLC.
 
 The data is available on: [TCIA website](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70229053)
 
@@ -17,38 +19,17 @@ Please read these documents before opening a new issue!
 
 # nnU-Net
 
-In 3D biomedical image segmentation, dataset properties like imaging modality, image sizes, voxel spacings, class
-ratios etc vary drastically.
-For example, images in the [Liver and Liver Tumor Segmentation Challenge dataset](https://competitions.codalab.org/competitions/17094)
-are computed tomography (CT) scans, about 512x512x512 voxels large, have isotropic voxel spacings and their
-intensity values are quantitative (Hounsfield Units).
-The [Automated Cardiac Diagnosis Challenge dataset](https://acdc.creatis.insa-lyon.fr/) on the other hand shows cardiac
-structures in cine MRI with a typical image shape of 10x320x320 voxels, highly anisotropic voxel spacings and
-qualitative intensity values. In addition, the ACDC dataset suffers from slice misalignments and a heterogeneity of
-out-of-plane spacings which can cause severe interpolation artifacts if not handled properly.
+In 3D biomedical image segmentation, dataset properties like imaging modality, image sizes, voxel spacings, class ratios etc vary drastically. For example, images in the [Liver and Liver Tumor Segmentation Challenge dataset](https://competitions.codalab.org/competitions/17094) are computed tomography (CT) scans, about 512x512x512 voxels large, have isotropic voxel spacings and their intensity values are quantitative (Hounsfield Units). The [Automated Cardiac Diagnosis Challenge dataset](https://acdc.creatis.insa-lyon.fr/) on the other hand shows cardiac structures in cine MRI with a typical image shape of 10x320x320 voxels, highly anisotropic voxel spacings and qualitative intensity values. In addition, the ACDC dataset suffers from slice misalignments and a heterogeneity of out-of-plane spacings which can cause severe interpolation artifacts if not handled properly.
 
-In current research practice, segmentation pipelines are designed manually and with one specific dataset in mind.
-Hereby, many pipeline settings depend directly or indirectly on the properties of the dataset
-and display a complex co-dependence: image size, for example, affects the patch size, which in
-turn affects the required receptive field of the network, a factor that itself influences several other
-hyperparameters in the pipeline. As a result, pipelines that were developed on one (type of) dataset are inherently
-incomaptible with other datasets in the domain.
+In current research practice, segmentation pipelines are designed manually and with one specific dataset in mind. Hereby, many pipeline settings depend directly or indirectly on the properties of the dataset and display a complex co-dependence: image size, for example, affects the patch size, which in turn affects the required receptive field of the network, a factor that itself influences several other hyperparameters in the pipeline. As a result, pipelines that were developed on one (type of) dataset are inherently incomaptible with other datasets in the domain.
 
-**nnU-Net is the first segmentation method that is designed to deal with the dataset diversity found in the domain. It
-condenses and automates the keys decisions for designing a successful segmentation pipeline for any given dataset.**
+**nnU-Net is the first segmentation method that is designed to deal with the dataset diversity found in the domain. It condenses and automates the keys decisions for designing a successful segmentation pipeline for any given dataset.**
 
 nnU-Net makes the following contributions to the field:
 
-1. **Standardized baseline:** nnU-Net is the first standardized deep learning benchmark in biomedical segmentation.
-   Without manual effort, researchers can compare their algorithms against nnU-Net on an arbitrary number of datasets
-   to provide meaningful evidence for proposed improvements.
-2. **Out-of-the-box segmentation method:** nnU-Net is the first plug-and-play tool for state-of-the-art biomedical
-   segmentation. Inexperienced users can use nnU-Net out of the box for their custom 3D segmentation problem without
-   need for manual intervention.
-3. **Framework:** nnU-Net is a framework for fast and effective development of segmentation methods. Due to its modular
-   structure, new architectures and methods can easily be integrated into nnU-Net. Researchers can then benefit from its
-   generic nature to roll out and evaluate their modifications on an arbitrary number of datasets in a
-   standardized environment.
+1. **Standardized baseline:** nnU-Net is the first standardized deep learning benchmark in biomedical segmentation. Without manual effort, researchers can compare their algorithms against nnU-Net on an arbitrary number of datasets to provide meaningful evidence for proposed improvements.
+2. **Out-of-the-box segmentation method:** nnU-Net is the first plug-and-play tool for state-of-the-art biomedical segmentation. Inexperienced users can use nnU-Net out of the box for their custom 3D segmentation problem without need for manual intervention.
+3. **Framework:** nnU-Net is a framework for fast and effective development of segmentation methods. Due to its modular structure, new architectures and methods can easily be integrated into nnU-Net. Researchers can then benefit from its generic nature to roll out and evaluate their modifications on an arbitrary number of datasets in a standardized environment.
 
 For more information about nnU-Net, please read the following paper:
 
@@ -86,27 +67,24 @@ Please also cite this paper if you are using nnU-Net for your research!
 
 
 # Installation
-nnU-Net has been tested on Linux (Ubuntu 16, 18 and 20; centOS, RHEL). We do not provide support for other operating
-systems.
+nnU-Net has been tested on Linux (Ubuntu 16, 18 and 20; centOS, RHEL). We do not provide support for other operating systems.
 
-nnU-Net requires a GPU! For inference, the GPU should have 4 GB of VRAM. For training nnU-Net models the GPU should have at
-least 10 GB (popular non-datacenter options are the RTX 2080ti, RTX 3080 or RTX 3090). 
+nnU-Net requires a GPU! For inference, the GPU should have 4 GB of VRAM. For training nnU-Net models the GPU should have at least 10 GB (popular non-datacenter options are the RTX 2080ti, RTX 3080 or RTX 3090). 
 
-For training, we recommend a strong CPU to go along with the GPU. At least 6 CPU cores (12 threads) are recommended. CPU
-requirements are mostly related to data augmentation and scale with the number of input channels. They are thus higher
-for datasets like BraTS which use 4 image modalities and lower for datasets like LiTS which only uses CT images.
+For training, we recommend a strong CPU to go along with the GPU. At least 6 CPU cores (12 threads) are recommended. CPU requirements are mostly related to data augmentation and scale with the number of input channels. They are thus higher for datasets like BraTS which use 4 image modalities and lower for datasets like LiTS which only uses CT images.
 
-We very strongly recommend you install nnU-Net in a virtual environment.
-[Here is a quick how-to for Ubuntu.](https://linoxide.com/linux-how-to/setup-python-virtual-environment-ubuntu/)
-If you choose to compile pytorch from source, you will need to use conda instead of pip. In that case, please set the
-environment variable OMP_NUM_THREADS=1 (preferably in your bashrc using `export OMP_NUM_THREADS=1`). This is important!
+**MOMO:** For the VS data with 2 image modalities I mainly used 1 GPU + 12/18 CPU cores, and for BRATS dataset I used 18/24 cores. That allowed me to access enough RAM (since the job ran on ASU HPC (named Agave) and allocated RAM scales with number of CPUs.)
+
+We very strongly recommend you install nnU-Net in a virtual environment. [Here is a quick how-to for Ubuntu.](https://linoxide.com/linux-how-to/setup-python-virtual-environment-ubuntu/) If you choose to compile pytorch from source, you will need to use conda instead of pip. In that case, please set the environment variable OMP_NUM_THREADS=1 (preferably in your bashrc using `export OMP_NUM_THREADS=1`). This is important!
 
 Python 2 is deprecated and not supported. Please make sure you are using Python 3.
 
-1) Install [PyTorch](https://pytorch.org/get-started/locally/) as described on their website (conda/pip). Please 
-install the latest version and (IMPORTANT!) choose 
-the highest CUDA version compatible with your drivers for maximum performance. 
-**DO NOT JUST `PIP INSTALL NNUNET` WITHOUT PROPERLY INSTALLING PYTORCH FIRST**
+**MOMO:** Make a conda environment with python 3.6. The codes is: `conda create -n ENVNAME python=3.6`
+
+1) Install [PyTorch](https://pytorch.org/get-started/locally/) as described on their website (conda/pip). Please install the latest version and (IMPORTANT!) choose  the highest CUDA version compatible with your drivers for maximum performance.  **DO NOT JUST `PIP INSTALL NNUNET` WITHOUT PROPERLY INSTALLING PYTORCH FIRST**
+
+**MOMO:** For the installation of PyTorch you'll need the To get the CUDA version, for which you could use this command: `nvcc --version`. The CUDA version on Agave was 11.6, but only found the command for installing with CUDA 11.3: `conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch`
+
 2) Verify that a recent version of pytorch was installed by running
     ```bash
     python -c 'import torch;print(torch.backends.cudnn.version())'
@@ -118,55 +96,45 @@ the highest CUDA version compatible with your drivers for maximum performance.
 
        ```pip install nnunet```
 
-    2) For use as integrative **framework** (this will create a copy of the nnU-Net code on your computer so that you can modify it as needed):
+    2) **MOMO:** You might want to for the main nnUNet repo and install your own version, so that your modifications will be saved to your version; help: earthdatascience.org/workshops/intro-version-control-git/about-forks/#:~:text=You%20can%20fork%20any%20repo,any%20repo%20on%20github.com. The next step would be a lil different since you'd need to: `cd your_nnunet_installation` and then `pip install -e .`
+    
+    3) For use as integrative **framework** (this will create a copy of the nnU-Net code on your computer so that you can modify it as needed):
           ```bash
           git clone https://github.com/MIC-DKFZ/nnUNet.git
           cd nnUNet
           pip install -e .
           ```
-4) nnU-Net needs to know where you intend to save raw data, preprocessed data and trained models. For this you need to
-   set a few of environment variables. Please follow the instructions [here](documentation/setting_up_paths.md).
-5) (OPTIONAL) Install [hiddenlayer](https://github.com/waleedka/hiddenlayer). hiddenlayer enables nnU-net to generate
-   plots of the network topologies it generates (see [Model training](#model-training)). To install hiddenlayer,
-   run the following commands:
+    4) nnU-Net needs to know where you intend to save raw data, preprocessed data and trained models. For this you need to set a few of environment variables. Please follow the instructions [here](documentation/setting_up_paths.md).
+    
+    5) (OPTIONAL) Install [hiddenlayer](https://github.com/waleedka/hiddenlayer). hiddenlayer enables nnU-net to generate plots of the network topologies it generates (see [Model training](#model-training)). To install hiddenlayer, run the following commands:
     ```bash
     pip install --upgrade git+https://github.com/FabianIsensee/hiddenlayer.git@more_plotted_details#egg=hiddenlayer
     ```
 
-Installing nnU-Net will add several new commands to your terminal. These commands are used to run the entire nnU-Net
-pipeline. You can execute them from any location on your system. All nnU-Net commands have the prefix `nnUNet_` for
-easy identification.
+Installing nnU-Net will add several new commands to your terminal. These commands are used to run the entire nnU-Net pipeline. You can execute them from any location on your system. All nnU-Net commands have the prefix `nnUNet_` for easy identification. Note that these commands simply execute python scripts. If you installed nnU-Net in a virtual environment, this environment must be activated when executing the commands.
 
-Note that these commands simply execute python scripts. If you installed nnU-Net in a virtual environment, this
-environment must be activated when executing the commands.
+**MOMO:** Activate the conda environment and nnUN-et functions will be available: `conda activate ENVNAME`. Since I code in Jupyter notebooks, I used this command to make the environment available for Jupyter: `mkjupy env_name kernel_name`
 
 All nnU-Net commands have a `-h` option which gives information on how to use them.
 
-A typical installation of nnU-Net can be completed in less than 5 minutes. If pytorch needs to be compiled from source
-(which is what we currently recommend when using Turing GPUs), this can extend to more than an hour.
+A typical installation of nnU-Net can be completed in less than 5 minutes. If pytorch needs to be compiled from source (which is what we currently recommend when using Turing GPUs), this can extend to more than an hour.
 
 # Usage
-To familiarize yourself with nnU-Net we recommend you have a look at the [Examples](#Examples) before you start with
-your own dataset.
+To familiarize yourself with nnU-Net we recommend you have a look at the [Examples](#Examples) before you start with your own dataset.
 
 ## How to run nnU-Net on a new dataset
-Given some dataset, nnU-Net fully automatically configures an entire segmentation pipeline that matches its properties.
-nnU-Net covers the entire pipeline, from preprocessing to model configuration, model training, postprocessing
-all the way to ensembling. After running nnU-Net, the trained model(s) can be applied to the test cases for inference.
+Given some dataset, nnU-Net fully automatically configures an entire segmentation pipeline that matches its properties. nnU-Net covers the entire pipeline, from preprocessing to model configuration, model training, postprocessing all the way to ensembling. After running nnU-Net, the trained model(s) can be applied to the test cases for inference.
+
+**MOMO:** For the VS dataset, the steps needed to take the TCIA data to nii format are described in the [VS_Seg](https://github.com/mabbasi6/VS_Seg/tree/master/preprocessing) repo. I registered T2 to T1 images.
 
 ### Dataset conversion
-nnU-Net expects datasets in a structured format. This format closely (but not entirely) follows the data structure of
-the [Medical Segmentation Decthlon](http://medicaldecathlon.com/). Please read
-[this](documentation/dataset_conversion.md) for information on how to convert datasets to be compatible with nnU-Net.
+nnU-Net expects datasets in a structured format. This format closely (but not entirely) follows the data structure of the [Medical Segmentation Decthlon](http://medicaldecathlon.com/). Please read [this](documentation/dataset_conversion.md) for information on how to convert datasets to be compatible with nnU-Net.
 
 ### Experiment planning and preprocessing
 As a first step, nnU-Net extracts a dataset fingerprint (a set of dataset-specific properties such as
-image sizes, voxel spacings, intensity information etc). This information is used to create three U-Net configurations:
-a 2D U-Net, a 3D U-Net that operated on full resolution images as well as a 3D U-Net cascade where the first U-Net
-creates a coarse segmentation map in downsampled images which is then refined by the second U-Net.
+image sizes, voxel spacings, intensity information etc). This information is used to create three U-Net configurations: a 2D U-Net, a 3D U-Net that operated on full resolution images as well as a 3D U-Net cascade where the first U-Net creates a coarse segmentation map in downsampled images which is then refined by the second U-Net.
 
-Provided that the requested raw dataset is located in the correct folder (`nnUNet_raw_data_base/nnUNet_raw_data/TaskXXX_MYTASK`,
-also see [here](documentation/dataset_conversion.md)), you can run this step with the following command:
+Provided that the requested raw dataset is located in the correct folder (`nnUNet_raw_data_base/nnUNet_raw_data/TaskXXX_MYTASK`, also see [here](documentation/dataset_conversion.md)), you can run this step with the following command:
 
 ```bash
 nnUNet_plan_and_preprocess -t XXX --verify_dataset_integrity
@@ -174,57 +142,32 @@ nnUNet_plan_and_preprocess -t XXX --verify_dataset_integrity
 
 `XXX` is the integer identifier associated with your Task name `TaskXXX_MYTASK`. You can pass several task IDs at once.
 
-Running `nnUNet_plan_and_preprocess` will populate your folder with preprocessed data. You will find the output in
-nnUNet_preprocessed/TaskXXX_MYTASK. `nnUNet_plan_and_preprocess` creates subfolders with preprocessed data for the 2D
-U-Net as well as all applicable 3D U-Nets. It will also create 'plans' files (with the ending.pkl) for the 2D and
-3D configurations. These files contain the generated segmentation pipeline configuration and will be read by the
-nnUNetTrainer (see below). Note that the preprocessed data folder only contains the training cases.
-The test images are not preprocessed (they are not looked at at all!). Their preprocessing happens on the fly during
-inference.
+Running `nnUNet_plan_and_preprocess` will populate your folder with preprocessed data. You will find the output in nnUNet_preprocessed/TaskXXX_MYTASK. `nnUNet_plan_and_preprocess` creates subfolders with preprocessed data for the 2D U-Net as well as all applicable 3D U-Nets. It will also create 'plans' files (with the ending.pkl) for the 2D and 3D configurations. These files contain the generated segmentation pipeline configuration and will be read by the nnUNetTrainer (see below). Note that the preprocessed data folder only contains the training cases. The test images are not preprocessed (they are not looked at at all!). Their preprocessing happens on the fly during inference.
 
-`--verify_dataset_integrity` should be run at least for the first time the command is run on a given dataset. This will execute some
-checks on the dataset to ensure that it is compatible with nnU-Net. If this check has passed once, it can be
-omitted in future runs. If you adhere to the dataset conversion guide (see above) then this should pass without issues :-)
+`--verify_dataset_integrity` should be run at least for the first time the command is run on a given dataset. This will execute some checks on the dataset to ensure that it is compatible with nnU-Net. If this check has passed once, it can be omitted in future runs. If you adhere to the dataset conversion guide (see above) then this should pass without issues :-)
 
-Note that `nnUNet_plan_and_preprocess` accepts several additional input arguments. Running `-h` will list all of them
-along with a description. If you run out of RAM during preprocessing, you may want to adapt the number of processes
-used with the `-tl` and `-tf` options.
+Note that `nnUNet_plan_and_preprocess` accepts several additional input arguments. Running `-h` will list all of them along with a description. If you run out of RAM during preprocessing, you may want to adapt the number of processes used with the `-tl` and `-tf` options.
 
-After `nnUNet_plan_and_preprocess` is completed, the U-Net configurations have been created and a preprocessed copy
-of the data will be located at nnUNet_preprocessed/TaskXXX_MYTASK.
+After `nnUNet_plan_and_preprocess` is completed, the U-Net configurations have been created and a preprocessed copy of the data will be located at nnUNet_preprocessed/TaskXXX_MYTASK.
 
-Extraction of the dataset fingerprint can take from a couple of seconds to several minutes depending on the properties
-of the segmentation task. Pipeline configuration given the extracted finger print is nearly instantaneous (couple
-of seconds). Preprocessing depends on image size and how powerful the CPU is. It can take between seconds and several
-tens of minutes.
+Extraction of the dataset fingerprint can take from a couple of seconds to several minutes depending on the properties of the segmentation task. Pipeline configuration given the extracted finger print is nearly instantaneous (couple of seconds). Preprocessing depends on image size and how powerful the CPU is. It can take between seconds and several tens of minutes.
 
 ### Model training
 nnU-Net trains all U-Net configurations in a 5-fold cross-validation. This enables nnU-Net to determine the
-postprocessing and ensembling (see next step) on the training dataset. Per default, all U-Net configurations need to
-be run on a given dataset. There are, however situations in which only some configurations (and maybe even without
-running the cross-validation) are desired. See [FAQ](documentation/common_questions.md) for more information.
+postprocessing and ensembling (see next step) on the training dataset. Per default, all U-Net configurations need to be run on a given dataset. There are, however situations in which only some configurations (and maybe even without running the cross-validation) are desired. See [FAQ](documentation/common_questions.md) for more information.
 
-Note that not all U-Net configurations are created for all datasets. In datasets with small image sizes, the U-Net
-cascade is omitted because the patch size of the full resolution U-Net already covers a large part of the input images.
+Note that not all U-Net configurations are created for all datasets. In datasets with small image sizes, the U-Net cascade is omitted because the patch size of the full resolution U-Net already covers a large part of the input images.
 
 Training models is done with the `nnUNet_train` command. The general structure of the command is:
 ```bash
 nnUNet_train CONFIGURATION TRAINER_CLASS_NAME TASK_NAME_OR_ID FOLD  --npz (additional options)
 ```
 
-CONFIGURATION is a string that identifies the requested U-Net configuration. TRAINER_CLASS_NAME is the name of the
-model trainer. If you implement custom trainers (nnU-Net as a framework) you can specify your custom trainer here.
-TASK_NAME_OR_ID specifies what dataset should be trained on and FOLD specifies which fold of the 5-fold-cross-validaton
-is trained.
+CONFIGURATION is a string that identifies the requested U-Net configuration. TRAINER_CLASS_NAME is the name of the model trainer. If you implement custom trainers (nnU-Net as a framework) you can specify your custom trainer here. TASK_NAME_OR_ID specifies what dataset should be trained on and FOLD specifies which fold of the 5-fold-cross-validaton is trained.
 
-nnU-Net stores a checkpoint every 50 epochs. If you need to continue a previous training, just add a `-c` to the
-training command.
+nnU-Net stores a checkpoint every 50 epochs. If you need to continue a previous training, just add a `-c` to the training command.
 
-IMPORTANT: `--npz` makes the models save the softmax outputs during the final validation. It should only be used for trainings
-where you plan to run `nnUNet_find_best_configuration` afterwards
-(this is nnU-Nets automated selection of the best performing (ensemble of) configuration(s), see below). If you are developing new
-trainer classes you may not need the softmax predictions and should therefore omit the `--npz` flag. Exported softmax
-predictions are very large and therefore can take up a lot of disk space.
+IMPORTANT: `--npz` makes the models save the softmax outputs during the final validation. It should only be used for trainings where you plan to run `nnUNet_find_best_configuration` afterwards (this is nnU-Nets automated selection of the best performing (ensemble of) configuration(s), see below). If you are developing new trainer classes you may not need the softmax predictions and should therefore omit the `--npz` flag. Exported softmax predictions are very large and therefore can take up a lot of disk space.
 If you ran initially without the `--npz` flag but now require the softmax predictions, simply run
 ```bash
 nnUNet_train CONFIGURATION TRAINER_CLASS_NAME TASK_NAME_OR_ID FOLD -val --npz
@@ -258,11 +201,9 @@ For FOLD in [0, 1, 2, 3, 4], run:
 nnUNet_train 3d_cascade_fullres nnUNetTrainerV2CascadeFullRes TaskXXX_MYTASK FOLD --npz
 ```
 
-Note that the 3D full resolution U-Net of the cascade requires the five folds of the low resolution U-Net to be
-completed beforehand!
+Note that the 3D full resolution U-Net of the cascade requires the five folds of the low resolution U-Net to be completed beforehand!
 
-The trained models will be written to the RESULTS_FOLDER/nnUNet folder. Each training obtains an automatically generated
-output folder name:
+The trained models will be written to the RESULTS_FOLDER/nnUNet folder. Each training obtains an automatically generated output folder name:
 
 nnUNet_preprocessed/CONFIGURATION/TaskXXX_MYTASKNAME/TRAINER_CLASS_NAME__PLANS_FILE_NAME/FOLD
 
@@ -306,10 +247,7 @@ For Task002_Heart (from the MSD), for example, this looks like this:
     │           └── fold_4
     └── 3d_lowres
 
-
-Note that 3d_lowres and 3d_cascade_fullres are not populated because this dataset did not trigger the cascade. In each
-model training output folder (each of the fold_x folder, 10 in total here), the following files will be created (only
-shown for one folder above for brevity):
+Note that 3d_lowres and 3d_cascade_fullres are not populated because this dataset did not trigger the cascade. In each model training output folder (each of the fold_x folder, 10 in total here), the following files will be created (only shown for one folder above for brevity):
 - debug.json: Contains a summary of blueprint and inferred parameters used for training this model. Not easy to read,
   but very useful for debugging ;-)
 - model_best.model / model_best.model.pkl: checkpoint files of the best model identified during training. Not used right now.
@@ -327,11 +265,9 @@ shown for one folder above for brevity):
 - validation_raw: in this folder are the predicted validation cases after the training has finished. The summary.json
   contains the validation metrics (a mean over all cases is provided at the end of the file).
 
-During training it is often useful to watch the progress. We therefore recommend that you have a look at the generated
-progress.png when running the first training. It will be updated after each epoch.
+During training it is often useful to watch the progress. We therefore recommend that you have a look at the generated progress.png when running the first training. It will be updated after each epoch.
 
-Training times largely depend on the GPU. The smallest GPU we recommend for training is the Nvidia RTX 2080ti. With
-this GPU (and pytorch compiled with cuDNN 8.0.2), all network trainings take less than 2 days.
+Training times largely depend on the GPU. The smallest GPU we recommend for training is the Nvidia RTX 2080ti. With this GPU (and pytorch compiled with cuDNN 8.0.2), all network trainings take less than 2 days.
 
 #### Multi GPU training
 
@@ -381,8 +317,7 @@ After finishing the training of all folds, run `nnUNet_change_trainer_class` on 
 (see `nnUNet_change_trainer_class -h` for instructions). After that you can run inference.
 
 ### Identifying the best U-Net configuration
-Once all models are trained, use the following
-command to automatically determine what U-Net configuration(s) to use for test set prediction:
+Once all models are trained, use the following command to automatically determine what U-Net configuration(s) to use for test set prediction:
 
 ```bash
 nnUNet_find_best_configuration -m 2d 3d_fullres 3d_lowres 3d_cascade_fullres -t XXX
@@ -390,15 +325,13 @@ nnUNet_find_best_configuration -m 2d 3d_fullres 3d_lowres 3d_cascade_fullres -t 
 
 (all 5 folds need to be completed for all specified configurations!)
 
-On datasets for which the cascade was not configured, use `-m 2d 3d_fullres` instead. If you wish to only explore some
-subset of the configurations, you can specify that with the `-m` command. Additional options are available (use `-h` for help).
+On datasets for which the cascade was not configured, use `-m 2d 3d_fullres` instead. If you wish to only explore some subset of the configurations, you can specify that with the `-m` command. Additional options are available (use `-h` for help).
 
 ### Run inference
 Remember that the data located in the input folder must adhere to the format specified
 [here](documentation/data_format_inference.md).
 
-`nnUNet_find_best_configuration` will print a string to the terminal with the inference commands you need to use.
-The easiest way to run inference is to simply use these commands.
+`nnUNet_find_best_configuration` will print a string to the terminal with the inference commands you need to use. The easiest way to run inference is to simply use these commands.
 
 If you wish to manually specify the configuration(s) used for inference, use the following commands:
 
@@ -407,8 +340,7 @@ For each of the desired configurations, run:
 nnUNet_predict -i INPUT_FOLDER -o OUTPUT_FOLDER -t TASK_NAME_OR_ID -m CONFIGURATION --save_npz
 ```
 
-Only specify `--save_npz` if you intend to use ensembling. `--save_npz` will make the command save the softmax
-probabilities alongside of the predicted segmentation masks requiring a lot of disk space.
+Only specify `--save_npz` if you intend to use ensembling. `--save_npz` will make the command save the softmax probabilities alongside of the predicted segmentation masks requiring a lot of disk space.
 
 Please select a separate `OUTPUT_FOLDER` for each configuration!
 
@@ -417,22 +349,13 @@ If you wish to run ensembling, you can ensemble the predictions from several con
 nnUNet_ensemble -f FOLDER1 FOLDER2 ... -o OUTPUT_FOLDER -pp POSTPROCESSING_FILE
 ```
 
-You can specify an arbitrary number of folders, but remember that each folder needs to contain npz files that were
-generated by `nnUNet_predict`. For ensembling you can also specify a file that tells the command how to postprocess.
-These files are created when running `nnUNet_find_best_configuration` and are located in the respective trained model
-directory (RESULTS_FOLDER/nnUNet/CONFIGURATION/TaskXXX_MYTASK/TRAINER_CLASS_NAME__PLANS_FILE_IDENTIFIER/postprocessing.json or
-RESULTS_FOLDER/nnUNet/ensembles/TaskXXX_MYTASK/ensemble_X__Y__Z--X__Y__Z/postprocessing.json). You can also choose to
-not provide a file (simply omit -pp) and nnU-Net will not run postprocessing.
+You can specify an arbitrary number of folders, but remember that each folder needs to contain npz files that were generated by `nnUNet_predict`. For ensembling you can also specify a file that tells the command how to postprocess. These files are created when running `nnUNet_find_best_configuration` and are located in the respective trained model directory (RESULTS_FOLDER/nnUNet/CONFIGURATION/TaskXXX_MYTASK/TRAINER_CLASS_NAME__PLANS_FILE_IDENTIFIER/postprocessing.json or RESULTS_FOLDER/nnUNet/ensembles/TaskXXX_MYTASK/ensemble_X__Y__Z--X__Y__Z/postprocessing.json). You can also choose to not provide a file (simply omit -pp) and nnU-Net will not run postprocessing.
 
-Note that per default, inference will be done with all available folds. We very strongly recommend you use all 5 folds.
-Thus, all 5 folds must have been trained prior to running inference. The list of available folds nnU-Net found will be
-printed at the start of the inference.
+Note that per default, inference will be done with all available folds. We very strongly recommend you use all 5 folds. Thus, all 5 folds must have been trained prior to running inference. The list of available folds nnU-Net found will be printed at the start of the inference.
 
 ## How to run inference with pretrained models
 
-Trained models for all challenges we participated in are publicly available. They can be downloaded and installed
-directly with nnU-Net. Note that downloading a pretrained model will overwrite other models that were trained with
-exactly the same configuration (2d, 3d_fullres, ...), trainer (nnUNetTrainerV2) and plans.
+Trained models for all challenges we participated in are publicly available. They can be downloaded and installed directly with nnU-Net. Note that downloading a pretrained model will overwrite other models that were trained with exactly the same configuration (2d, 3d_fullres, ...), trainer (nnUNetTrainerV2) and plans.
 
 To obtain a list of available models, as well as a short description, run
 
@@ -440,18 +363,14 @@ To obtain a list of available models, as well as a short description, run
 nnUNet_print_available_pretrained_models
 ```
 
-You can then download models by specifying their task name. For the Liver and Liver Tumor Segmentation Challenge,
-for example, this would be:
+You can then download models by specifying their task name. For the Liver and Liver Tumor Segmentation Challenge, for example, this would be:
 
 ```bash
 nnUNet_download_pretrained_model Task029_LiTS
 ```
-After downloading is complete, you can use this model to run [inference](#run-inference). Keep in mind that each of
-these models has specific data requirements (Task029_LiTS runs on abdominal CT scans, others require several image
-modalities as input in a specific order).
+After downloading is complete, you can use this model to run [inference](#run-inference). Keep in mind that each of these models has specific data requirements (Task029_LiTS runs on abdominal CT scans, others require several image modalities as input in a specific order).
 
-When using the pretrained models you must adhere to the license of the dataset they are trained on! If you run
-`nnUNet_download_pretrained_model` you will find a link where you can find the license for each dataset.
+When using the pretrained models you must adhere to the license of the dataset they are trained on! If you run `nnUNet_download_pretrained_model` you will find a link where you can find the license for each dataset.
 
 ## Examples
 
@@ -466,16 +385,13 @@ Please refer to [this](documentation/extending_nnunet.md) guide.
 
 # Information on run time and potential performance bottlenecks.
 
-We have compiled a list of expected epoch times on standardized datasets across many different GPUs. You can use them
-to verify that your system is performing as expected. There are also tips on how to identify bottlenecks and what
-to do about them.
+We have compiled a list of expected epoch times on standardized datasets across many different GPUs. You can use them to verify that your system is performing as expected. There are also tips on how to identify bottlenecks and what to do about them.
 
 Click [here](documentation/expected_epoch_times.md).
 
 # Common questions and issues
 
-We have collected solutions to common [questions](documentation/common_questions.md) and
-[problems](documentation/common_problems_and_solutions.md). Please consult these documents before you open a new issue.
+We have collected solutions to common [questions](documentation/common_questions.md) and [problems](documentation/common_problems_and_solutions.md). Please consult these documents before you open a new issue.
 
 # Useful Resources
 

@@ -1,10 +1,7 @@
 # Dataset conversion instructions
-nnU-Net requires the raw data to be brought into a specific format so that it know how to read and interpret it. This 
-format closely, but not entirely, follows the format used by the 
-[Medical Segmentation Decathlon](http://medicaldecathlon.com/) (MSD).
+nnU-Net requires the raw data to be brought into a specific format so that it know how to read and interpret it. This format closely, but not entirely, follows the format used by the [Medical Segmentation Decathlon](http://medicaldecathlon.com/) (MSD).
 
-The entry point to nnU-Net is the nnUNet_raw_data_base folder (which the user needs to specify when installing nnU-Net!). 
-Each segmentation dataset is stored as a separate 'Task'. Tasks are associated with a task ID, a three digit integer 
+The entry point to nnU-Net is the nnUNet_raw_data_base folder (which the user needs to specify when installing nnU-Net!).  Each segmentation dataset is stored as a separate 'Task'. Tasks are associated with a task ID, a three digit integer 
 (this is different from the MSD!) and 
 a task name (which you can freely choose): Task005_Prostate has 'Prostate' as task name and the task id is 5. Tasks are stored in the 
 nnUNet_raw_data_base/nnUNet_raw_data folder like this:
